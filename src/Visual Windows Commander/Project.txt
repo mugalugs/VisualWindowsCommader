@@ -1,0 +1,43 @@
+﻿Task legend
+ - Task that needs doing
+ -? Done but not tested
+ -/ Completed
+ -# Won't or can't be done
+ * Note
+
+== Tasks
+ -/ Rename to Visual Window Commander
+ -# Display order
+ -# Select window (nearby, select closest in listbox)
+ -# Click on new location on panel
+ -/ Drag and drop windows
+   - Remember drag start location for more intuitive experience
+ -# Move ghost window to new location (move window in thread, throttled?)
+ -/ Panel refresh
+   -/ Double buffer
+ - UWP apps have their own rules likely due to the background/sleep ability
+   - Check extended styles?
+   - Check transparency/opacity
+     * Inconclusive
+   - Likely need to check if the process is suspended
+     * Dear mother of god, why is it so hard/slow, no easy win32 call to get thread state, .net method is like racing a F1 on a turtle
+	 * UWP seem to go into a suspended state after sleeping (Mail / Calculator / Store)
+	 * Threads go into Wait/UserRequest which unfortunetly is the same for normal processes as well
+ -/ Periodic window data update (new / closed windows)
+ -/ Periodic update current window data
+   -/ Position update every frame
+ -/ Refresh window bounds
+ - Keep aspect ratio of the virtual screen?
+ - Padding for some white space
+ - Panning, Zoom, Fit All, Home (Middle mouse, mouse scroll, space, home)
+
+== Sources
+https://social.msdn.microsoft.com/Forums/vstudio/en-US/045b63cb-3096-4514-aeb5-1b2aa21a27a1/get-list-of-open-windows?forum=csharpgeneral
+http://pinvoke.net/default.aspx/user32.GetWindowInfo
+https://docs.microsoft.com/en-us/windows/desktop/api/winuser/ns-winuser-tagwindowinfo
+https://docs.microsoft.com/en-us/windows/desktop/winmsg/window-styles
+https://stackoverflow.com/questions/1190423/using-setwindowpos-in-c-sharp-to-move-windows-around
+https://stackoverflow.com/questions/1317235/c-get-complete-desktop-size
+https://stackoverflow.com/questions/825595/how-to-get-the-z-order-in-windows
+https://docs.microsoft.com/en-us/windows/desktop/winmsg/using-windows
+https://stackoverflow.com/questions/22949725/how-to-get-thread-state-e-g-suspended-memory-cpu-usage-start-time-priori
