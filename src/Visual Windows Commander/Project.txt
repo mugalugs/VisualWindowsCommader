@@ -11,7 +11,7 @@
  -# Select window (nearby, select closest in listbox)
  -# Click on new location on panel
  -/ Drag and drop windows
-   - Remember drag start location for more intuitive experience
+   -/ Remember drag start location for more intuitive experience
  -# Move ghost window to new location (move window in thread, throttled?)
  -/ Panel refresh
    -/ Double buffer
@@ -30,6 +30,15 @@
  - Keep aspect ratio of the virtual screen?
  - Padding for some white space
  - Panning, Zoom, Fit All, Home (Middle mouse, mouse scroll, space, home)
+ -/ Multiple monitor support
+   * Goodbye performance
+   -# Need to move all of the calculations to a worker thread(s)
+   * Turns out GetWindowContext is quite expensive, removed, unused anyway
+     * Oddly only when there are more than one screen though
+   * Also reordered the if before GetWindowInfo, no need to get info if the window name is empty
+ -/ Added a cross in the center of windows and line drawn to it
+   * Makes it more obvious which window is selected and how
+ * Updated to 30 FPS
 
 == Sources
 https://social.msdn.microsoft.com/Forums/vstudio/en-US/045b63cb-3096-4514-aeb5-1b2aa21a27a1/get-list-of-open-windows?forum=csharpgeneral

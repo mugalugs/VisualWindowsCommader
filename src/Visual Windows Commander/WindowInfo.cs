@@ -9,9 +9,7 @@ namespace VisualWindowsManager
     public class WindowInfo
     {
         public IntPtr hwnd;
-        public Win32Interop.WINDOWINFO windowInfo;
         public string windowName;
-        public string className;
         public Rectangle screenPosition;
 
         public bool exists = true;
