@@ -376,13 +376,13 @@ namespace VisualWindowsManager
                     outlineColor = windowMovingOutlinePen;
                     textColor = windowMovingNameBrush;
                 }
+                
+                gfx.FillRectangle(new SolidBrush(Color.FromArgb(180, backgroundColor)), x, y, width, height);
 
                 //cross
                 gfx.DrawLine(outlineColor, x + (width / 2) - 5, y + (height / 2) - 5, x + (width / 2) + 5, y + (height / 2) + 5);
                 gfx.DrawLine(outlineColor, x + (width / 2) + 5, y + (height / 2) - 5, x + (width / 2) - 5, y + (height / 2) + 5);
 
-                SizeF windowNameBackground = gfx.MeasureString(closest.windowName, smallWindowFont);
-                gfx.FillRectangle(new SolidBrush(backgroundColor), x - 5, y - 5, windowNameBackground.Width + 10, windowNameBackground.Height + 10);
                 gfx.DrawString(closest.windowName, smallWindowFont, textColor,
                     x,
                     y);
@@ -397,6 +397,37 @@ namespace VisualWindowsManager
                 gfx.DrawString(Math.Round(distance).ToString(), smallWindowFont, textColor,
                     x,
                     y + 15);
+
+                Win32Interop.WINDOWINFO info = new Win32Interop.WINDOWINFO();
+                info.cbSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(info);
+                Win32Interop.GetWindowInfo(closest.hwnd, ref info);
+                
+                gfx.DrawString("Styles: " + Win32Interop.WindowStyles(info.dwStyle), smallWindowFont, textColor,
+                    x,
+                    y + 30);
+
+                gfx.DrawString("ExStyles: " + Win32Interop.WindowExStyles(info.dwExStyle), smallWindowFont, textColor,
+                    x,
+                    y + 45);
+
+                gfx.DrawString("Atom: " + info.atomWindowType.ToString(), smallWindowFont, textColor,
+                    x,
+                    y + 60);
+
+                bool visible = Win32Interop.IsWindowVisible(closest.hwnd);
+
+                gfx.DrawString("Visible: " + visible.ToString(), smallWindowFont, textColor,
+                    x,
+                    y + 75);
+
+                Win32Interop.WINDOWPLACEMENT placement = new Win32Interop.WINDOWPLACEMENT();
+                placement.length = System.Runtime.InteropServices.Marshal.SizeOf(placement);
+                if (Win32Interop.GetWindowPlacement(closest.hwnd, ref placement))
+                {
+                    gfx.DrawString("State: " + Win32Interop.WindowState(placement.showCmd), smallWindowFont, textColor,
+                    x,
+                    y + 90);
+                }
 
                 gfx.DrawLine(windowCloestOutlinePen, cursor.X, cursor.Y, (maxBounds.X + closest.screenPosition.X + closest.screenPosition.Width / 2) * scaleX, (maxBounds.Y + closest.screenPosition.Y + closest.screenPosition.Height / 2) * scaleY);
             }

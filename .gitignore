@@ -2,6 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/src/.vs/Visual Windows Commander/v15
-/src/Visual Windows Commander/bin/Debug
-/src/Visual Windows Commander/obj/Debug
+/src/.vs
+/src/Visual Windows Commander/bin
+/src/Visual Windows Commander/obj
